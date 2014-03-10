@@ -10,3 +10,114 @@
   (parse-string (:body (http/get "http://ws.spotify.com/search/1/track.json"
                                  {:query-params {:q query}}))
                 true))
+
+(def lovesongs (query-spotify "love songs"))
+
+(keys lovesongs)
+
+(:num_results (lovesongs :info))
+
+(first (:tracks lovesongs))
+(nth (:tracks lovesongs) 13)
+((:tracks lovesongs) 14)
+(second (:tracks lovesongs))
+(count (take 5 (:tracks lovesongs)))
+
+(map #(:name %) (:tracks lovesongs))
+
+(map :name (:tracks lovesongs))
+
+
+(defn summarise-track
+  [track]
+  (format "%s : %s"
+  (:name track)
+  (:length track)))
+
+
+(map summarise-track (:tracks lovesongs))
+
+(reduce str (map :name (:tracks lovesongs)))
+
+
+
+
+
+(first (:tracks lovesongs))
+
+(defn name-from-artists
+  [artists]
+  (map :name artists))
+
+
+(reduce str (flatten (map name-from-artists (map :artists (:tracks lovesongs)))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
