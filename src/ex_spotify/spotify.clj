@@ -49,8 +49,24 @@
   [artists]
   (map :name artists))
 
+(defn artist-from-tracks
+  [tracks]
+  (map :artists tracks))
 
-(reduce str (flatten (map name-from-artists (map :artists (:tracks lovesongs)))))
+(defn unique-artists
+  [names]
+  (distinct (flatten names)))
+
+(defn to-comma-separated-string
+  [artists]
+  (apply str (interpose ", " artists)))
+
+
+(to-comma-separated-string (unique-artists (map name-from-artists (artist-from-tracks (:tracks lovesongs)))))
+
+
+
+
 
 
 
