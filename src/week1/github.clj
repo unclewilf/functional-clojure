@@ -1,4 +1,4 @@
-(ns ex-spotify.spotify
+(ns week1.spotify
   (:require [clj-http.client :as http]
             [clojure.edn :as edn]
             [cheshire.core :refer [parse-string]]
