@@ -18,3 +18,7 @@
   :setup setup
   :draw draw
   :size [400 400])
+
+(defn five [] 5)
+
+(+ (five) 5)
