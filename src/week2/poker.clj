@@ -7,19 +7,11 @@
     {:suit suit
      :pip pip}))
 
-(count deck)
-
-(frequencies (map :suit deck))
 
 (def sdeck (shuffle deck))
 
 (def hand (take 5 sdeck))
 
-(map :pip hand)
-
-(map :suit hand)
-
-(set (vals (frequencies (map :suit hand))))
 
 (defn two-of-a-kind
   [hand] (n-of-a-kind hand 2))
@@ -31,21 +23,38 @@
   [hand] (n-of-a-kind hand 4))
 
 (defn full-house
-  [hand] (n-of-a-kind hand 5))
+  [hand] (and (two-of-a-kind hand) (three-of-a-kind hand)))
 
 (defn n-of-a-kind
-  [hand n] (contains? (set (vals (frequencies (map :suit hand)))) n))
+  [hand n] (contains? (set (vals (frequencies (map :pip hand)))) n))
 
-(two-of-a-kind hand)
+
+
+
+;tests
+
+(count deck)
+
+(frequencies (map :suit deck))
+
+
+(map :pip hand)
+
+(map :suit hand)
+
+
+(full-house '({:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3}))
+
+(full-house '({:suit :heart, :pip 3} {:suit :heart, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 2} {:suit :diamonds, :pip 2}))
+
+(full-house '({:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3}))
+
+
+(two-of-a-kind '({:suit :hearts, :pip 3} {:suit :diamonds, :pip 3}))
 
 (three-of-a-kind hand)
 
 (four-of-a-kind hand)
-
-(full-house hand)
-
-
-
 
 
 
