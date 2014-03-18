@@ -1,21 +1,22 @@
 (ns week2.poker)
 
-(def deck
+(def deck "Full deck of cards"
   (for [suit [:clubs :hearts :spades :diamonds]
         pip (range 2 15)]
     {:suit suit
      :pip pip}))
 
-(def score-ranking {:royal-flush      royal-flush
-                    :straight-flush   straight-flush
-                    :four-of-a-kind   four-of-a-kind
-                    :full-house       full-house
-                    :flush            a-flush
-                    :straight         straight
-                    :three-of-a-kind  three-of-a-kind
-                    :two-pairs        two-pair
-                    :pair             a-pair
-                    :high-card        high-card})
+(def score-ranking "Map of each score to its calculating function in order of ranking"
+  {:royal-flush      royal-flush
+   :straight-flush   straight-flush
+   :four-of-a-kind   four-of-a-kind
+   :full-house       full-house
+   :flush            a-flush
+   :straight         straight
+   :three-of-a-kind  three-of-a-kind
+   :two-pairs        two-pair
+   :pair             a-pair
+   :high-card        high-card})
 
 (defn n-of-a-kind
   [hand n] (contains? (set (vals (frequencies (map :pip hand)))) n))
@@ -61,13 +62,13 @@
            (apply str hand1)
            (apply str hand2))))
 
-(defn deal "Deal cards for user and computer player"
+(defn deal
   [sdeck]
   (let [computer (take 5 sdeck)
         player (take 5 (nthrest sdeck 5))]
   (do
     (print-deal computer player)
-    ({:player computer :computer player}))))
+    {:player computer :computer player})))
 
 (defn play-game []
   (deal (shuffle deck)))

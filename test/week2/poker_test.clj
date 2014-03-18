@@ -6,7 +6,9 @@
   (testing "FIXME, I fail."
     (is (= 0 1))))
 
-(high-card '({:suit :diamonds, :pip 4}{:suit :clubs, :pip 10}{:suit :clubs, :pip 1}))
+;(high-card '({:suit :diamonds, :pip 4}{:suit :clubs, :pip 10}{:suit :clubs, :pip 1}))
+
+(deal deck)
 
 
 ;(def x (shuffle deck))

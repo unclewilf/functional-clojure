@@ -61,3 +61,47 @@
 
 (let [[x y z & rest] v] (println (first (first rest))))
 
+
+
+
+(defn add [listie]
+  (let [x (first listie)
+        y (second listie)]
+    (+ x y)))
+
+(println (add '(1 2)))
+
+
+(def deck
+  (for [suit [:clubs :hearts :spades :diamonds]
+        pip (range 2 15)]
+    {:suit suit
+     :pip pip}))
+
+(defn print-deal [hand1 hand2]
+  (println
+   (format "Computer has: %s, Players has: %s"
+           (apply str hand1)
+           (apply str hand2))))
+
+(defn deal
+  [sdeck]
+  (let [computer (take 5 sdeck)
+        player (take 5 (nthrest sdeck 5))]
+  (do
+    (println "Hi")
+    {:player computer :computer player})))
+
+
+
+(deal deck)
+
+
+
+
+
+
+
+
+
+
