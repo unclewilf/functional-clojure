@@ -3,3 +3,11 @@
 The code for the Week 1 exercise, playing around with the Spotify API.
 
 
+Poker
+-Features to add
+	Compare player and computer hand function
+	Come back with score for a hand
+	Draw scenario for highest suit
+
+
+

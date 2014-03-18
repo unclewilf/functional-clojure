@@ -1,4 +1,3 @@
-
 (ns week2.poker)
 
 (def deck
@@ -7,54 +6,71 @@
     {:suit suit
      :pip pip}))
 
-
-(def sdeck (shuffle deck))
-
-(def hand (take 5 sdeck))
-
-
-(defn two-of-a-kind
-  [hand] (n-of-a-kind hand 2))
-
-(defn three-of-a-kind
-  [hand] (n-of-a-kind hand 3))
-
-(defn four-of-a-kind
-  [hand] (n-of-a-kind hand 4))
-
-(defn full-house
-  [hand] (and (two-of-a-kind hand) (three-of-a-kind hand)))
+(def score-ranking {:royal-flush      royal-flush
+                    :straight-flush   straight-flush
+                    :four-of-a-kind   four-of-a-kind
+                    :full-house       full-house
+                    :flush            a-flush
+                    :straight         straight
+                    :three-of-a-kind  three-of-a-kind
+                    :two-pairs        two-pair
+                    :pair             a-pair
+                    :high-card        high-card})
 
 (defn n-of-a-kind
   [hand n] (contains? (set (vals (frequencies (map :pip hand)))) n))
 
+(defn royal-flush
+  ;every? func collection ?
+  [hand] {})
 
+(defn straight-flush [hand]
+  {})
 
+(defn four-of-a-kind [hand]
+  (n-of-a-kind hand 4))
 
-;tests
+(defn full-house [hand]
+  (and (a-pair hand) (three-of-a-kind hand)))
 
-(count deck)
+(defn a-flush [hand]
+  {})
 
-(frequencies (map :suit deck))
+(defn straight [hand]
+  {})
 
+(defn three-of-a-kind [hand]
+  (n-of-a-kind hand 3))
 
-(map :pip hand)
+(defn two-pair [hand]
+  {})
 
-(map :suit hand)
+(defn a-pair [hand]
+  (n-of-a-kind hand 2))
 
+(defn high-card [hand]
+  ())
 
-(full-house '({:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3}))
+(defn resolve-draw "If score 1 better, return 1; if score 2 better return -1; return 0 for draw"
+  [score1 score2]
+  ())
 
-(full-house '({:suit :heart, :pip 3} {:suit :heart, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 2} {:suit :diamonds, :pip 2}))
+(defn print-deal [hand1 hand2]
+  (println
+   (format "Computer has: %s, Players has: %s"
+           (apply str hand1)
+           (apply str hand2))))
 
-(full-house '({:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3} {:suit :diamonds, :pip 3}))
+(defn deal "Deal cards for user and computer player"
+  [sdeck]
+  (let [computer (take 5 sdeck)
+        player (take 5 (nthrest sdeck 5))]
+  (do
+    (print-deal computer player)
+    ({:player computer :computer player}))))
 
-
-(two-of-a-kind '({:suit :hearts, :pip 3} {:suit :diamonds, :pip 3}))
-
-(three-of-a-kind hand)
-
-(four-of-a-kind hand)
+(defn play-game []
+  (deal (shuffle deck)))
 
 
 
