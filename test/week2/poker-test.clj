@@ -45,24 +45,23 @@
   (testing "Invalid flush should return false"
     (is (false? (flush? duff-hand)))))
 
+(deftest full-house-test
+  (testing "Valid full-house returns true"
+    (is (true? (full-house? full-hand))))
+  (testing "Invalid full-house should return false"
+    (is (false? (full-house? duff-hand)))))
 
-;(deftest should-be-valid-royal-flush
-;  (testing "Should be a royal-flush"
-;    (is (=
-;          (royal-flush? rflush-hand)
-;          {:royal-flush}))))
-;
-;(defn should-be-valid-straight-flush?
-;  (testing "Should be straight-flush"
-;    (is (=
-;          (straight-flush? sflush-hand)
-;          {:straight-flush sflush-hand}))))
-;
-;(defn full-house
-;  (testing "FIXME, I fail."
-;    (is (=
-;         (royal-flush rflush)
-;         {:royal-flush royal-flush}))))
+(deftest straight-flush-test
+  (testing "Valid straight flush returns true"
+    (is (true? (straight-flush? sflush-hand))))
+  (testing "Invalid straight flush should return false"
+    (is (false? (straight-flush? duff-hand)))))
+
+(deftest royal-flush-test
+  (testing "Valid royal flush returns true"
+    (is (true? (royal-flush? rflush-hand))))
+  (testing "Invalid royal flush should return false"
+    (is (false? (royal-flush? duff-hand)))))
 
 
 

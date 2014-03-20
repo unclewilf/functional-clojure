@@ -49,11 +49,15 @@
   (n-of-a-kind hand 4))
 
 (defn straight-flush? [hand]
-  {})
+  (and
+    (straight? hand)
+    (flush? hand)))
 
 (defn royal-flush?
-  ;every? func collection ?
-  [hand] {:sdgsgd 3})
+  [hand]
+  (and
+    (straight-flush? hand)
+    (= 14 (last (sort (map :pip hand))))))
 
 (def score-ranking "Map of each score to its calculating function in order of ranking"
   {:royal-flush     royal-flush?
