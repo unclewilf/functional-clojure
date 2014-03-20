@@ -1,5 +1,25 @@
 (ns week2.poker)
 
+(def duff-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 3}{:suit :diamonds, :pip 5}{:suit :hearts, :pip 6}{:suit :spades, :pip 7}))
+
+(def pair-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 2}{:suit :diamonds, :pip 3}{:suit :hearts, :pip 5}{:suit :spades, :pip 6}))
+
+(def two-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 2}{:suit :diamonds, :pip 3}{:suit :hearts, :pip 3}{:suit :spades, :pip 5}))
+
+(def three-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 2}{:suit :diamonds, :pip 3}{:suit :hearts, :pip 2}{:suit :spades, :pip 9}))
+
+(def straight-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 3}{:suit :diamonds, :pip 4}{:suit :hearts, :pip 5}{:suit :spades, :pip 6}))
+
+(def flush-hand '({:suit :clubs, :pip 2}{:suit :clubs, :pip 10}{:suit :clubs, :pip 4}{:suit :clubs, :pip 5}{:suit :clubs, :pip 6}))
+
+(def full-hand '({:suit :clubs, :pip 2}{:suit :hearts, :pip 2}{:suit :clubs, :pip 4}{:suit :clubs, :pip 4}{:suit :clubs, :pip 4}))
+
+(def four-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 2}{:suit :spades, :pip 2}{:suit :hearts, :pip 2}{:suit :spades, :pip 5}))
+
+(def sflush-hand '({:suit :diamonds, :pip 2}{:suit :diamonds, :pip 4}{:suit :diamonds, :pip 3}{:suit :diamonds, :pip 5}{:suit :diamonds, :pip 6}))
+
+(def rflush-hand '({:suit :clubs, :pip 13}{:suit :clubs, :pip 14}{:suit :clubs, :pip 12}{:suit :clubs, :pip 10}{:suit :clubs, :pip 11}))
+
 (def duff '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 2}{:suit :diamonds, :pip 3}{:suit :hearts, :pip 2}{:suit :spades, :pip 2}))
 
 (def deck "Full deck of cards"
@@ -11,52 +31,36 @@
 (defn n-of-a-kind
   [hand n] (contains? (set (vals (frequencies (map :pip hand)))) n))
 
-(defn high-card [hand]
-  ({:high-card (sort fn[c1 c2](> c1 c2) hand)}))
+(defn high-card? [hand]
+  ({:high-card (sort (fn[c1 c2](> c1 c2)) hand)}))
 
-(defn a-pair [hand]
+(defn pair? [hand]
   (n-of-a-kind hand 2))
 
-(defn two-pair [hand]
+(defn two-pair? [hand]
   {})
 
-(defn three-of-a-kind [hand]
+(defn three-of-a-kind? [hand]
   (n-of-a-kind hand 3))
 
-(defn a-straight [hand]
+(defn straight? [hand]
   {})
 
-(defn a-flush [hand]
+(defn flush? [hand]
   {})
 
-(defn full-house [hand]
+(defn full-house? [hand]
   (and (a-pair hand) (three-of-a-kind hand)))
 
-(defn four-of-a-kind [hand]
+(defn four-of-a-kind? [hand]
   (n-of-a-kind hand 4))
 
-(defn straight-flush [hand]
+(defn straight-flush? [hand]
   {})
 
-(defn royal-flush
+(defn royal-flush?
   ;every? func collection ?
   [hand] {:sdgsgd 3})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 (def score-ranking "Map of each score to its calculating function in order of ranking"
   {:royal-flush      royal-flush
@@ -90,13 +94,4 @@
 
 (defn play-game []
   (deal (shuffle deck)))
-
-
-
-
-
-
-
-
-
-
+  
