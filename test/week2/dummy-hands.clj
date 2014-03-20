@@ -1,4 +1,4 @@
-(ns week2.test-hands)
+(ns week2.dummy-hands)
 
 (def duff-hand '({:suit :diamonds, :pip 2}{:suit :clubs, :pip 3}{:suit :diamonds, :pip 5}{:suit :hearts, :pip 6}{:suit :spades, :pip 7}))
 
