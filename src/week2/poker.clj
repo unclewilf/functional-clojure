@@ -78,7 +78,8 @@
   [score1 score2]
   ())
 
-(defn print-deal [hand1 hand2]
+(defn print-deal "Side effect function, to give useful breakdown of dealt cards"
+  [hand1 hand2]
   (println
    (format "Computer has: %s, Players has: %s"
            (apply str hand1)
