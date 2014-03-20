@@ -50,7 +50,7 @@
   {})
 
 (defn full-house? [hand]
-  (and (a-pair hand) (three-of-a-kind hand)))
+  (and (pair? hand) (three-of-a-kind? hand)))
 
 (defn four-of-a-kind? [hand]
   (n-of-a-kind hand 4))
@@ -63,16 +63,16 @@
   [hand] {:sdgsgd 3})
 
 (def score-ranking "Map of each score to its calculating function in order of ranking"
-  {:royal-flush      royal-flush
-   :straight-flush   straight-flush
-   :four-of-a-kind   four-of-a-kind
-   :full-house       full-house
-   :flush            a-flush
-   :straight         a-straight
-   :three-of-a-kind  three-of-a-kind
-   :two-pair         two-pair
-   :pair             a-pair
-   :high-card        high-card})
+  {:royal-flush      royal-flush?
+   :straight-flush   straight-flush?
+   :four-of-a-kind   four-of-a-kind?
+   :full-house       full-house?
+   :flush            flush?
+   :straight         straight?
+   :three-of-a-kind  three-of-a-kind?
+   :two-pair         two-pair?
+   :pair             pair?
+   :high-card        high-card?})
 
 (defn resolve-draw "If score 1 better, return 1; if score 2 better return -1; return 0 for draw"
   [score1 score2]
@@ -94,5 +94,6 @@
     {:player computer :computer player})))
 
 (defn play-game []
-  (deal (shuffle deck)))
+  (deal
+    (shuffle deck)))
   
