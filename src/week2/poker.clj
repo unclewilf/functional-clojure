@@ -11,7 +11,8 @@
   (frequencies (map :pip hand)))
 
 (defn n-of-a-kind
-  [hand n] (contains? (set (vals (pip-frequencies hand))) n))
+  [hand n]
+  (contains? (set (vals (pip-frequencies hand))) n))
 
 (defn high-card
   [hand]
@@ -69,7 +70,7 @@
    :three-of-a-kind three-of-a-kind?
    :two-pair        two-pair?
    :pair            pair?
-   :high-card       high-card?})
+   :high-card       high-card})
 
 (defn resolve-draw "If score 1 better, return 1; if score 2 better return -1; return 0 for draw"
   [score1 score2]
@@ -78,7 +79,7 @@
 (defn print-deal "Side effect function, to give useful breakdown of dealt cards"
   [hand1 hand2]
   (println
-    (format "Computer has: %s, Players has: %s"
+    (format "Computer has: %s\nPlayer has: %s"
             (apply str hand1)
             (apply str hand2))))
 
