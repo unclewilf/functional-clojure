@@ -11,9 +11,8 @@
 
 (deftest high-card-test
   (testing "High card should be 7"
-    (is (=
-          (high-card duff-hand)
-          {:high-card 7}))))
+    (is (true?
+          (high-card duff-hand)))))
 
 (deftest three-of-a-kind-test
   (testing "A valid hand returns true"
@@ -63,5 +62,12 @@
   (testing "Invalid royal flush should return false"
     (is (false? (royal-flush? duff-hand)))))
 
+(deftest analyse-hand
+  (testing "Valid royal flush"
+    (is (= :royal-flush (determine-score rflush-hand))))
+  (testing "Valid three of a kind"
+    (is (= :three-of-a-kind (determine-score three-hand))))
+  (testing "Valid high card"
+    (is (= :high-card (determine-score duff-hand)))))
 
 

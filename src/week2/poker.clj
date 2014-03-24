@@ -16,7 +16,10 @@
 
 (defn high-card
   [hand]
-  {:high-card (first (sort (fn [c1 c2] (> c1 c2)) (map :pip hand)))})
+  true)
+
+(defn pair? [hand]
+  (n-of-a-kind hand 2))
 
 (defn pair? [hand]
   (n-of-a-kind hand 2))
@@ -61,16 +64,23 @@
     (= 14 (last (sort (map :pip hand))))))
 
 (def score-ranking "Map of each score to its calculating function in order of ranking"
-  {:royal-flush     royal-flush?
-   :straight-flush  straight-flush?
-   :four-of-a-kind  four-of-a-kind?
-   :full-house      full-house?
-   :flush           flush?
-   :straight        straight?
+  (array-map :royal-flush royal-flush?
+   :straight-flush straight-flush?
+   :four-of-a-kind four-of-a-kind?
+   :full-house full-house?
+   :flush flush?
+   :straight straight?
    :three-of-a-kind three-of-a-kind?
-   :two-pair        two-pair?
-   :pair            pair?
-   :high-card       high-card})
+   :two-pair two-pair?
+   :pair pair?
+   :high-card high-card))
+
+(defn determine-score [hand]
+  (loop [my-keys (keys score-ranking)
+         my-vals (vals score-ranking)]
+    (if ((first my-vals) hand)
+      (first my-keys)
+      (recur (rest my-keys) (rest my-vals)))))
 
 (defn resolve-draw "If score 1 better, return 1; if score 2 better return -1; return 0 for draw"
   [score1 score2]
@@ -91,6 +101,22 @@
       (print-deal computer player)
       {:player computer :computer player})))
 
+(defn score-hands [hands]
+  (into {}
+        (map
+          (juxt key (comp determine-score val))
+          hands)))
+
+(defn show-winner [scores]
+  (let [ranking (keys score-ranking)
+        player-rank (.indexOf ranking (:player scores))
+        computer-rank (.indexOf ranking (:computer scores))]
+    (if (< player-rank computer-rank)
+      (println (str "player wins with " (:player scores) " computer had " (:computer scores)))
+      (if (< computer-rank player-rank)
+        (println (str "you lost with " (:player scores) " computer had " (:computer scores)))
+        (println (str "draw! player and computer had " (:player scores)))))))
+
 (defn play-game []
-  (deal
-    (shuffle deck)))
+  (show-winner (score-hands (deal (shuffle deck)))))
+
