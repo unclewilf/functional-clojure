@@ -1,4 +1,5 @@
-(ns week2.poker)
+(ns week2.poker
+  (:require clojure.pprint))
 
 (def deck "Full deck of cards"
   (for [suit [:clubs :hearts :spades :diamonds]
@@ -75,16 +76,24 @@
    :pair pair?
    :high-card high-card))
 
+;(condp < (:height child)
+;  30 :romper
+;  50 :dungarees
+;  100 :roundabout
+;  200 (rollercoaster))
+;
+;(cond
+;  (royal-flush? hand) 100
+;  (straight? hand) 90
+;
+;      )
+
 (defn determine-score [hand]
   (loop [my-keys (keys score-ranking)
          my-vals (vals score-ranking)]
     (if ((first my-vals) hand)
       (first my-keys)
       (recur (rest my-keys) (rest my-vals)))))
-
-(defn resolve-draw "If score 1 better, return 1; if score 2 better return -1; return 0 for draw"
-  [score1 score2]
-  ())
 
 (defn print-deal "Side effect function, to give useful breakdown of dealt cards"
   [hand1 hand2]
@@ -112,10 +121,10 @@
         player-rank (.indexOf ranking (:player scores))
         computer-rank (.indexOf ranking (:computer scores))]
     (if (< player-rank computer-rank)
-      (println (str "player wins with " (:player scores) " computer had " (:computer scores)))
+      (println (format "you won with %s, computer had %s" (:player scores) (:computer scores)))
       (if (< computer-rank player-rank)
-        (println (str "you lost with " (:player scores) " computer had " (:computer scores)))
-        (println (str "draw! player and computer had " (:player scores)))))))
+        (println (format "you lost with %s, computer had %s" (:player scores) (:computer scores)))
+        (println (format "draw! player and computer had %s" (:player scores)))))))
 
 (defn play-game []
   (show-winner (score-hands (deal (shuffle deck)))))
